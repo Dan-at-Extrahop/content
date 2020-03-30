@@ -1,5 +1,5 @@
 ## [Unreleased]
-Removed duplicate fields from ***domain*** and ***whois*** commands output.
+- Removed duplicate fields from ***domain*** and ***whois*** commands output.
 
 | Removed Field| Corresponding Field| 
 |:---:|:---:|
@@ -10,7 +10,9 @@ Removed duplicate fields from ***domain*** and ***whois*** commands output.
 | `Domain.ExpirationDate` & `Domain.WHOIS.ExpirationDate`| `Domain.Whois.ExpirationDate` |
 | `Domain.WHOIS.Registrar` & `Domain.Registrant.name`| `Domain.Whois.Registrar.Name` |
 | `Domain.Admin.name` & `Domain.WHOIS.Admin.name`| `Domain.Whois.Administrator.name` |
-
+ - Added the *Domain.Whois.QueryValue* context output to ***domain*** and ***whois*** commands.
+ - Added ability to query Whois with subdomains (ignoring it).  
+ 
 ## [20.3.3] - 2020-03-18
 Added the ***domain*** command to enable domain enrichment.
 
