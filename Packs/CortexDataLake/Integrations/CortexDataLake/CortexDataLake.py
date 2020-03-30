@@ -79,7 +79,7 @@ class Client(BaseClient):
         oproxy_response = self._http_request('POST',
                                              '/cdl-token',
                                              json_data={'token': get_encrypted(self.refresh_token, self.enc_key)},
-                                             timeout=30)
+                                             timeout=(30, 30))
         access_token = oproxy_response.get(ACCESS_TOKEN_CONST)
         api_url = oproxy_response.get('url')
         refresh_token = oproxy_response.get(REFRESH_TOKEN_CONST)
