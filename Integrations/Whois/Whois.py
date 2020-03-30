@@ -8342,10 +8342,9 @@ def create_outputs(whois_result, domain, query=None):
 
 
 def domain_command():
-    query = demisto.args().get('domain')
-    domain = get_domain_from_query(query)
+    domain = demisto.args().get('domain')
     whois_result = get_whois(domain)
-    md, standard_ec, dbot_score = create_outputs(whois_result, domain, query)
+    md, standard_ec, dbot_score = create_outputs(whois_result, domain)
     demisto.results({
         'Type': entryTypes['note'],
         'ContentsFormat': formats['markdown'],

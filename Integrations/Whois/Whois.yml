@@ -313,9 +313,6 @@ script:
     - contextPath: Domain.Whois.QueryStatus
       description: The result of the command ("Success" or "Failed").
       type: string
-    - contextPath: Domain.Whois.QueryValue
-      description: The query requested by the user.
-      type: string
   dockerimage: demisto/ippysocks
   isfetch: false
   runonce: false

@@ -10,7 +10,7 @@
 | `Domain.ExpirationDate` & `Domain.WHOIS.ExpirationDate`| `Domain.Whois.ExpirationDate` |
 | `Domain.WHOIS.Registrar` & `Domain.Registrant.name`| `Domain.Whois.Registrar.Name` |
 | `Domain.Admin.name` & `Domain.WHOIS.Admin.name`| `Domain.Whois.Administrator.name` |
- - Added the *Domain.Whois.QueryValue* context output to ***domain*** and ***whois*** commands.
+ - Added the *Domain.Whois.QueryValue* context output to ***whois*** command.
  - Added ability to query Whois with subdomains (ignoring it).  
  
 ## [20.3.3] - 2020-03-18
