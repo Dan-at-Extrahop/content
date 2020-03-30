@@ -780,7 +780,7 @@ def add_policy_content_command():
                                    categories=categories)
     elif content_type == LOCAL_CATEGORY_DB_TYPE:
         add_policy_content_request(uuid, content_type, change_description, schema_version,
-                                   urls=urls, categories=categories)
+                                   urls=urls, categories=categories, description=description)
 
     return_outputs('Successfully added content to the policy', {}, {})
 
@@ -831,7 +831,8 @@ def add_policy_content_request(uuid, content_type, change_description, schema_ve
                 for url in urls:
                     entries.append({
                         'type': 'url',
-                        'url': url
+                        'url': url,
+                        'comment': description
                     })
                 content['content']['categories'].append({
                     'type': 'inline',
