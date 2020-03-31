@@ -1,15 +1,5 @@
 ## [Unreleased]
-- Removed duplicate fields from ***domain*** and ***whois*** commands output.
-
-| Removed Field| Corresponding Field| 
-|:---:|:---:|
-| `Domain.DomainStatus` & `Domain.WHOIS.DomainStatus` | `Domain.Whois.DomainStatus` |
-| `Domain.NameServers` & `Domain.WHOIS.NameServers`| `Domain.Whois.NameServers` |
-| `Domain.CreationDate` & `Domain.WHOIS.CreationDate`| `Domain.Whois.CreationDate` |
-| `Domain.UpdatedDate` & `Domain.WHOIS.UpdatedDate`| `Domain.Whois.UpdatedDate` |
-| `Domain.ExpirationDate` & `Domain.WHOIS.ExpirationDate`| `Domain.Whois.ExpirationDate` |
-| `Domain.WHOIS.Registrar` & `Domain.Registrant.name`| `Domain.Whois.Registrar.Name` |
-| `Domain.Admin.name` & `Domain.WHOIS.Admin.name`| `Domain.Whois.Administrator.name` |
+ - Removed duplicate fields from ***domain*** and ***whois*** commands output.
  - Added the *Domain.Whois.QueryValue* context output to ***whois*** command.
  - Added ability to query Whois with subdomains (ignoring it).  
  
