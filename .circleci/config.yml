@@ -6,14 +6,12 @@ jobs:
     resource_class: medium+
     parallelism: 2
     environment:
-      CONTENT_VERSION: "20.3.4"
+      CONTENT_VERSION: "20.3.3"
       SERVER_VERSION: "5.0.1"
-      GIT_SHA1: "4696087457090e6ac597df96870016bdc2e371a0" # guardrails-disable-line disable-secrets-detection
+      GIT_SHA1: "ff7008afef82c5c88470d076f6c6eb673aa0ce51" # guardrails-disable-line disable-secrets-detection
     steps:
       - checkout
       - setup_remote_docker
-      - restore_cache:
-          key: venv-{{ checksum "dev-requirements-py2.txt" }}-{{ checksum "dev-requirements-py3.txt" }}-{{ checksum ".circleci/build-requirements.txt" }}-{{ checksum "package-lock.json" }}
       - run:
           name: Prepare Environment
           when: always
@@ -171,16 +169,6 @@ jobs:
             fi
             ./Documentation/commonServerDocs.sh
       - run:
-          name: Content Docs Site
-          when: always
-          command: |
-            if [ $CIRCLE_NODE_INDEX -ne 0 ];
-              then
-                echo "Skipping - running only in container number 0"
-                exit 0
-            fi
-            ./Documentation/docs_site_update.sh
-      - run:
           name: Create Content Artifacts
           when: always
           command: |
@@ -202,27 +190,23 @@ jobs:
       - run:
           name: Run Unit Testing and Lint
           when: always
+          no_output_timeout: 5h
           command: |
             if [ -n "${INSTANCE_TESTS}" ] || [ $CIRCLE_NODE_INDEX -ne 1 ] ;
               then
                 echo "Skipping - unit tests are running only in container number 1"
                 exit 0
             fi
-            echo "demisto-sdk version: $(demisto-sdk --version)"
-            echo "mypy version: $(mypy --version)"
-            echo "flake8 py2 version: $(python2 -m flake8 --version)"
-            echo "flake8 py3 version: $(python3 -m flake8 --version)"
-            echo "bandit py2 version: $(python2 -m bandit --version 2>&1)"
-            echo "bandit py3 version: $(python3 -m bandit --version 2>&1)"
-            echo "vulture py2 version: $(python2 -m vulture --version) 2>&1"
-            echo "vulture py3 version: $(python3 -m vulture --version) 2>&1"
+            mkdir ./unit-tests
             SHOULD_LINT_ALL=$(./Tests/scripts/should_lint_all.sh)
             if [ -n "$SHOULD_LINT_ALL" ]; then
               echo -e  "----------\nLinting all because:\n${SHOULD_LINT_ALL}\n----------"
-              demisto-sdk lint --run-all-tests --parallel --outfile ./artifacts/failed_unittests.txt -v
+              demisto-sdk lint -p 12 -a --test-xml ./unit-tests --log-path ./artifacts --json-report ./artifacts
             else
-              demisto-sdk lint --git --parallel --outfile ./artifacts/failed_unittests.txt -v
+              demisto-sdk lint -a -p 12 --test-xml ./unit-tests --log-path ./artifacts --json-report ./artifacts
             fi
+      - store_test_results:
+          path: ./unit-tests
       - run:
           name: Verify Base Branch for Contribution
           when: always
@@ -287,17 +271,14 @@ jobs:
             fi
             if ./Tests/scripts/is_ami.sh ;
               then
-                if [ -n "${NIGHTLY}" ] ;
+                if [ -n "${NIGHTLY}" ] || [ -n "${INSTANCE_TESTS}" ] ;
                   then
                     export IFRA_ENV_TYPE=Nightly # disable-secrets-detection
-                elif [ -n "${INSTANCE_TESTS}" ] ;
-                  then
-                    export IFRA_ENV_TYPE="Demisto PreGA" # disable-secrets-detection
 
                   else
                     export IFRA_ENV_TYPE=Content-Env # disable-secrets-detection
                 fi
-                python ./Tests/scripts/awsinstancetool/aws_instance_tool.py -envType "$IFRA_ENV_TYPE" -outfile ./env_results.json
+                python ./Tests/scripts/awsinstancetool/aws_instance_tool.py -envType $IFRA_ENV_TYPE -outfile ./env_results.json
 
               else
                 python ./Tests/scripts/awsinstancetool/aws_instance_tool.py -envType CustomBuild -outfile ./env_results.json
@@ -502,7 +483,7 @@ jobs:
             PACK_ARTIFACTS=$CIRCLE_ARTIFACTS/content_packs.zip
             GCS_PATH=$(mktemp)
             echo $GCS_MARKET_KEY > $GCS_PATH
-            python3 ./Tests/store_packs.py -a $PACK_ARTIFACTS -e $EXTRACT_FOLDER -s $GCS_PATH -b 'marketplace-dist' -n $CIRCLE_BUILD_NUM -p 'All' -o -k $PACK_SIGNING_KEY
+            python3 ./Tests/store_packs.py -a $PACK_ARTIFACTS -e $EXTRACT_FOLDER -s $GCS_PATH -b 'marketplace-dist' -n $CIRCLE_BUILD_NUM -p 'All' -o
             rm $GCS_PATH
           when: on_success
       - store_artifacts:
