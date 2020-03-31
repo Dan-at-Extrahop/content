@@ -203,7 +203,7 @@ jobs:
               echo -e  "----------\nLinting all because:\n${SHOULD_LINT_ALL}\n----------"
               demisto-sdk lint -p 12 -a --test-xml ./unit-tests --log-path ./artifacts --json-report ./artifacts
             else
-              demisto-sdk lint -a -p 12 --test-xml ./unit-tests --log-path ./artifacts --json-report ./artifacts
+              demisto-sdk lint -a -q --test-xml ./unit-tests --log-path ./artifacts --json-report ./artifacts
             fi
       - store_test_results:
           path: ./unit-tests
