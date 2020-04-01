@@ -1,2 +1,2 @@
 ## [Unreleased]
- - This pack Provides data enrichment for domains
+  - This pack Provides data enrichment for domains.
