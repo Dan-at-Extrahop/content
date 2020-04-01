@@ -8356,7 +8356,6 @@ def domain_command():
         }
     })
 
-
 def whois_command():
     query = demisto.args().get('query')
     domain = get_domain_from_query(query)
