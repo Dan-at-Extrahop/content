@@ -7610,11 +7610,12 @@ organization_regexes = (
     r"\ss\.?a\.?r\.?l\.?($|\s)",
 )
 
-grammar["_data"]["id"] = precompile_regexes(grammar["_data"]["id"], re.IGNORECASE)  # type: ignore
+
+grammar["_data"]["id"] = precompile_regexes(grammar["_data"]["id"], re.IGNORECASE)    # type: ignore
 grammar["_data"]["status"] = precompile_regexes(grammar["_data"]["status"], re.IGNORECASE)  # type: ignore
 grammar["_data"]["creation_date"] = precompile_regexes(grammar["_data"]["creation_date"], re.IGNORECASE)  # type: ignore
-grammar["_data"]["expiration_date"] = precompile_regexes(grammar["_data"]["expiration_date"],
-                                                         re.IGNORECASE)  # type: ignore
+grammar["_data"]["expiration_date"] = precompile_regexes(grammar["_data"]["expiration_date"],  # type: ignore
+                                                         re.IGNORECASE)
 grammar["_data"]["updated_date"] = precompile_regexes(grammar["_data"]["updated_date"], re.IGNORECASE)  # type: ignore
 grammar["_data"]["registrar"] = precompile_regexes(grammar["_data"]["registrar"], re.IGNORECASE)  # type: ignore
 grammar["_data"]["whois_server"] = precompile_regexes(grammar["_data"]["whois_server"], re.IGNORECASE)  # type: ignore
