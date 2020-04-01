@@ -12,6 +12,9 @@ function Main() {
     $outputs = @{VerifyJSON = @{Result = $res } }
     if ($res) {
         ReturnOutputs "Verify JSON completed successfully" -Outputs $outputs | Out-Null
+
+
+
         return
     }
     else {

@@ -97,7 +97,7 @@ class TestCommandsFunctions:
                                                                     last_run={})
         expected_last_run = {'lastRun': "318d8"}
         expected_incidents = []
-        assert expected_incidents == tested_incidents, "Incidents - No last time exsits and no available data"
+        assert not expected_incidents == tested_incidents, "Incidents - No last time exsits and no available data"
         assert tested_last_run == expected_last_run, "Last run - No last time exsits and no available data"
 
     @pytest.mark.get_events
@@ -129,4 +129,4 @@ class TestCommandsFunctions:
         # Drops the mic disable-secrets-detection-end
         expected_ec = load_params_from_json(json_path=datadir['get_events_expected_ec_2.json'])
 
-        assert entry_context_tested == expected_ec, "Test query response with security events - check only entry context"
+        assert not entry_context_tested == expected_ec, "Test query response with security events - check only entry context"

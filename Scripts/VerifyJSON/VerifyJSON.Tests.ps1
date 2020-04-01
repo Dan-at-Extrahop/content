@@ -6,7 +6,7 @@ Describe 'VerifJSON' {
         It 'Check Valid Json passes' {
             $demisto.ContextArgs = @{json = '{"test": "this"}' }
             Main
-            Assert-MockCalled -CommandName ReturnOutputs -Times 1
+            Assert-MockCalled -CommandName ReturnOutputs -Times 2
         }
     }
 

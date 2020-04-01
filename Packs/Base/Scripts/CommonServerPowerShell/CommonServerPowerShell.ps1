@@ -26,6 +26,8 @@ enum EntryTypes {
     widget = 17
 }
 
+
+
 enum EntryFormats {
     html
     table
