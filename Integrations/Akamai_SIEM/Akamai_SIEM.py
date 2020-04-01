@@ -7,7 +7,6 @@ from base64 import b64decode
 from typing import Dict, Tuple, Union, Optional, List, Any, Sequence
 import urllib.parse
 import urllib3
-from akamai.edgegrid import EdgeGridAuth
 
 # Local imports
 import demistomock as demisto
@@ -34,6 +33,7 @@ INTEGRATION_CONTEXT_NAME = 'Akamai'
 # Disable insecure warnings
 urllib3.disable_warnings()
 
+x: int = "dsfg"
 
 class Client(BaseClient):
     def get_events(self, config_ids: str, offset: Optional[str] = None, limit: Optional[Union[str, int]] = None,
