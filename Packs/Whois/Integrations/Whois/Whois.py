@@ -1238,6 +1238,7 @@ tlds = {
         "host": "whois.verisign-grs.com",
         "adapter": "verisign"
     },
+    "co.il": {},
     "africa.com": {
         "_group": "centralnic",
         "_type": "private",
@@ -8244,7 +8245,7 @@ def get_whois(domain, normalized=None):
 
 def get_domain_from_query(query):
     # checks for largest matching suffix inside tlds dictionary
-    suffix_len = len(max([suffix for suffix in tlds if query.endswith('.{}'.format(suffix))] or [""]))
+    suffix_len = max([len(suffix) for suffix in tlds if query.endswith('.{}'.format(suffix))] or [0])
     if suffix_len != 0:
         suffix_len += 1
     suffixless_query = query[:-suffix_len]
