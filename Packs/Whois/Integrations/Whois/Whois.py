@@ -7207,9 +7207,9 @@ def get_root_server(domain):
             ext = dble
 
     if ext in tlds.keys():
-        entry = tlds.get(ext)
+        entry = tlds[ext]
         try:
-            host = entry.get("host")
+            host = entry["host"]
         except KeyError:
             context = ({
                 outputPaths['domain']: {
