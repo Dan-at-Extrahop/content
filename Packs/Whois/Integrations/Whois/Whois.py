@@ -7205,7 +7205,7 @@ def get_root_server(domain):
             ext = dble
 
     if ext in tlds.keys():
-        entry = tlds[ext]
+        entry = tlds.get(ext, {})
         try:
             host = entry.get("host")
         except KeyError:
