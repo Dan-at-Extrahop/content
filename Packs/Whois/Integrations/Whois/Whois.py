@@ -1238,7 +1238,6 @@ tlds = {
         "host": "whois.verisign-grs.com",
         "adapter": "verisign"
     },
-    "co.il": {},
     "africa.com": {
         "_group": "centralnic",
         "_type": "private",
@@ -2884,6 +2883,9 @@ tlds = {
         "host": "whois.ikano.tld-box.at"
     },
     "il": {
+        "host": "whois.isoc.org.il"
+    },
+    "co.il": {
         "host": "whois.isoc.org.il"
     },
     "im": {
@@ -7205,7 +7207,7 @@ def get_root_server(domain):
             ext = dble
 
     if ext in tlds.keys():
-        entry = tlds.get(ext, {})
+        entry = tlds.get(ext)
         try:
             host = entry.get("host")
         except KeyError:
